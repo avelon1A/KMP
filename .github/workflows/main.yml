@@ -28,6 +28,9 @@ jobs:
           brew install gradle
           sudo gem install cocoapods
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+
       - name: Build iOS Framework
         run: ./gradlew :shared:build
 
