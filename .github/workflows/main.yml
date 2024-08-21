@@ -1,0 +1,54 @@
+name: iOS Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+
+    - name: Set up Kotlin
+      uses: fwilhour/kotlin-setup-action@v1.2
+      with:
+        kotlin-version: '1.8.10'  # Replace with your Kotlin version
+
+    - name: Install dependencies
+      run: |
+        brew update
+        brew install gradle
+        sudo gem install cocoapods
+
+    - name: Build iOS Framework
+      run: ./gradlew :shared:build
+
+    - name: Install iOS dependencies
+      run: |
+        cd iosApp
+        pod install
+
+    - name: Build iOS App
+      run: |
+        cd iosApp
+        xcodebuild -workspace iosApp.xcworkspace -scheme iosApp -sdk iphonesimulator -configuration Debug
+
+    - name: Archive iOS App
+      run: |
+        xcodebuild -workspace iosApp.xcworkspace -scheme iosApp -sdk iphoneos -configuration Release -archivePath $PWD/build/iosApp.xcarchive archive
+
+    - name: Export IPA
+      run: |
+        xcodebuild -exportArchive -archivePath $PWD/build/iosApp.xcarchive -exportOptionsPlist iosApp/ExportOptions.plist -exportPath $PWD/build
