@@ -38,12 +38,14 @@ jobs:
         run: |
           cd iosApp
           xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator -configuration Debug
-      
 
-      - name: Archive iOS App
-        run: |
-          xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphoneos -configuration Release -archivePath $PWD/build/iosApp.xcarchive archive
 
       - name: Export IPA
         run: |
           xcodebuild -exportArchive -archivePath $PWD/build/iosApp.xcarchive -exportOptionsPlist iosApp/ExportOptions.plist -exportPath $PWD/build
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v3
+        with:
+            name: ios-app
+            path: iosApp/build/*.ipa
