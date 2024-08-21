@@ -34,15 +34,11 @@ jobs:
       - name: Build iOS Framework
         run: ./gradlew :shared:build
 
-      - name: Build the iOS app
-        run: |
-          cd iosApp
-          xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator -configuration Debug
-
-      - name: Archive iOS App
+      - name: Build iOS App
         run: |
             cd iosApp
-             xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphoneos -configuration Release -archivePath $PWD/build/iosApp.xcarchive archive
+            ./gradlew assemble
+            xcodebuild -workspace iosApp.xcworkspace -scheme iosApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/iosApp.xcarchive
 
 
       - name: Export IPA
