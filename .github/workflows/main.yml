@@ -42,7 +42,7 @@ jobs:
 
       - name: Archive iOS App
         run: |
-          xcodebuild -workspace iosApp.xcworkspace -scheme iosApp -sdk iphoneos -configuration Release -archivePath $PWD/build/iosApp.xcarchive archive
+          xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphoneos -configuration Release -archivePath $PWD/build/iosApp.xcarchive archive
 
       - name: Export IPA
         run: |
