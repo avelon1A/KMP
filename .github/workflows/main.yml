@@ -39,6 +39,11 @@ jobs:
           cd iosApp
           xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator -configuration Debug
 
+      - name: Archive iOS App
+        run: |
+            cd iosApp
+             xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphoneos -configuration Release -archivePath $PWD/build/iosApp.xcarchive archive
+
 
       - name: Export IPA
         run: |
