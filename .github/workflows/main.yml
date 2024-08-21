@@ -34,10 +34,11 @@ jobs:
       - name: Build iOS Framework
         run: ./gradlew :shared:build
 
-      - name: Build iOS App
+      - name: Build the iOS app
         run: |
           cd iosApp
-          xcodebuild -workspace iosApp.xcworkspace -scheme iosApp -sdk iphonesimulator -configuration Debug
+          xcodebuild -project iosApp.xcodeproj -scheme iosApp -sdk iphonesimulator -configuration Debug
+      
 
       - name: Archive iOS App
         run: |
