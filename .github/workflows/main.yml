@@ -24,7 +24,7 @@ jobs:
     - name: Set up Kotlin
       uses: fwilhour/kotlin-setup-action@v1.2
       with:
-        kotlin-version: '1.8.10'  # Replace with your Kotlin version
+        kotlin-version: '2.0.0'  # Replace with your Kotlin version
 
     - name: Install dependencies
       run: |
