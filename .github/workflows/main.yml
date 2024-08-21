@@ -37,7 +37,6 @@ jobs:
       - name: Build iOS App
         run: |
             cd iosApp
-            ./gradlew assemble
             xcodebuild -workspace iosApp.xcworkspace -scheme iosApp -sdk iphoneos -configuration Release archive -archivePath $PWD/build/iosApp.xcarchive
 
 
