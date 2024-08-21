@@ -34,11 +34,6 @@ jobs:
       - name: Build iOS Framework
         run: ./gradlew :shared:build
 
-      - name: Install iOS dependencies
-        run: |
-          cd iosApp
-          pod install
-
       - name: Build iOS App
         run: |
           cd iosApp
